@@ -249,7 +249,10 @@ extension TLPhotoLibrary {
                 if var cameraRoll = camerarollCollection {
                     cameraRoll.title = configure.customLocalizedTitle[cameraRoll.title] ?? cameraRoll.title
                     cameraRoll.useCameraButton = useCameraButton
-                    assetCollections[0] = cameraRoll
+                    if assetCollections.contains(where: { $0.localIdentifier == cameraRoll.localIdentifier }) == false
+                    {
+                        assetCollections[0] = cameraRoll
+                    }
                     DispatchQueue.main.async {
                         self?.delegate?.loadCameraRollCollection(collection: cameraRoll)
                     }
